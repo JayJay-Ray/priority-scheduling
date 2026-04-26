@@ -63,7 +63,7 @@ public class NonPreemptive implements PriorityScheduler {
       }
     }
     // Display results
-    System.out.println("Priority Scheduling Results (Non-preemptive with Aging)");
+    System.out.println("Priority Scheduling Results (Non-preemptive)");
     displayPrioritySchedulingResults(processes);
     ganttChart(schedulingStatistics);
     displayAverages(processes);
