@@ -17,14 +17,14 @@ public class NonPreemptive implements PriorityScheduler {
       Comparator.comparingInt((Process p) -> p.priority).thenComparingInt(p -> p.pid));
     
     while(finishedProcessCount < length){
-      // 1. Add all processes that have arrived by the current time into the PQ
+      //Add all processes that have arrived by the current time into the PQ
       while (listIdx < length && processes.get(listIdx).arrivalTime <= currentTime) {
         pq.add(processes.get(listIdx));
         listIdx++;
       }
       
       if (!pq.isEmpty()) {
-        // 2. Extract the process with the highest priority
+        //Extract the process with the highest priority
         Process p = pq.poll();
         
         p.completionTime = currentTime + p.burstTime;
@@ -35,9 +35,7 @@ public class NonPreemptive implements PriorityScheduler {
         finishedProcessCount++;
         
         schedulingStatistics.add(new SchedulingStatistics("P" + p.pid, p.completionTime));
-        // 3. AGING LOGIC (Non-Preemptive style)
-        // Now that a process has finished and time has jumped forward,
-        // we update the priorities of everyone still waiting in the queue.
+        // AGING LOGIC
         if (!pq.isEmpty()) {
           ArrayList<Process> waiting = new ArrayList<>();
           
