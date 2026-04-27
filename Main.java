@@ -182,9 +182,7 @@ public class Main {
   }
   //method for clearing the terminal once the user decided to make another cpu scheduling.
   public static void clearScreen() {
-        // Use the ANSI escape code (best for the terminal in your screenshot)
-        //System.out.print("\033[H\033[2J");
-        System.out.print("\033c");
+        System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 }
