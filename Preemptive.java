@@ -14,8 +14,8 @@ public class Preemptive implements PriorityScheduler {
         
         processes.sort(Comparator.comparingInt(p -> p.arrivalTime));
 
-        //PriorityQueue: Sorts by priority (lower number = higher priority)
-        // If priorities are equal, it sorts by Arrival Time (Tie-breaker)
+        //PriorityQueue: Sorts by priority
+        // If priorities are equal, it sorts by Arrival Time
         PriorityQueue<Process> readyQueue = new PriorityQueue<>(
             Comparator.comparingInt((Process p) -> p.priority).thenComparingInt(p -> p.arrivalTime)
         );
