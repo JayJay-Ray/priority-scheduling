@@ -14,7 +14,7 @@ public class Preemptive implements PriorityScheduler {
         
         processes.sort(Comparator.comparingInt(p -> p.arrivalTime));
 
-        // 1. PriorityQueue: Sorts by priority (lower number = higher priority)
+        //PriorityQueue: Sorts by priority (lower number = higher priority)
         // If priorities are equal, it sorts by Arrival Time (Tie-breaker)
         PriorityQueue<Process> readyQueue = new PriorityQueue<>(
             Comparator.comparingInt((Process p) -> p.priority).thenComparingInt(p -> p.arrivalTime)
@@ -26,7 +26,7 @@ public class Preemptive implements PriorityScheduler {
         }
 
         while (finished < n) {
-          // 2. Add all processes that have arrived by this time to the Ready Queue
+          //Add all processes that have arrived by this time to the Ready Queue
           for (Process p : processes) {
             if (p.arrivalTime == currentTime) {
               readyQueue.add(p);
@@ -34,7 +34,7 @@ public class Preemptive implements PriorityScheduler {
           }
           
           if (!readyQueue.isEmpty()) {
-            // 3. Get the process with the highest priority
+            //Get the process with the highest priority
             Process p = readyQueue.peek();
             String currentPid = "P" + p.pid;
             // Gantt Chart Logic
@@ -44,7 +44,7 @@ public class Preemptive implements PriorityScheduler {
             } else {
               schedulingStatistics.get(schedulingStatistics.size() - 1).completionTime = currentTime + 1;
             }
-            // 4. Execute for 1 unit
+            //Execute for 1 unit
             p.remainingTime--;
             if (p.remainingTime == 0) {
               readyQueue.poll(); // Remove finished process
@@ -54,7 +54,7 @@ public class Preemptive implements PriorityScheduler {
               p.waitingTime = p.turnAroundTime - p.burstTime;
             }
           } else {
-            // 5. Handle Idle Time
+            //Handle Idle Time
             currentTime++;
             if (!lastPid.equals("IDLE")) {
               schedulingStatistics.add(new SchedulingStatistics("IDLE", currentTime));
@@ -64,25 +64,25 @@ public class Preemptive implements PriorityScheduler {
             }
             continue; // Skip the currentTime++ at the bottom to avoid double increment
           }
-          currentTime++; // This is already in your code
-          // Corrected Aging Logic
+          currentTime++;
+          //Aging Logic
           if (currentTime % 5 == 0 && !readyQueue.isEmpty()) {
-            // 1. Identify who is currently running (the one at the top)
+            //Identify who is currently running (the one at the top)
             Process runningProcess = readyQueue.poll(); 
     
             ArrayList<Process> waiting = new ArrayList<>();
-            // 2. Pull out only the remaining processes (the ones actually waiting)
+            //Pull out only the remaining processes (the ones actually waiting)
             while(!readyQueue.isEmpty())
             {
               waiting.add(readyQueue.poll());
             }
-            // 3. Age only the waiting processes
+            //Age only the waiting processes
             for(Process wp : waiting) {
               if(wp.priority > 1) {
                 wp.priority--; 
               }
             }
-            // 4. Put everyone back (the runner and the aged waiters)
+            //Put everyone back
             readyQueue.add(runningProcess);
             readyQueue.addAll(waiting);
 
