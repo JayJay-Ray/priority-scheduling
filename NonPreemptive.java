@@ -14,7 +14,7 @@ public class NonPreemptive implements PriorityScheduler {
     processes.sort(Comparator.comparingInt(p -> p.arrivalTime));
         
     PriorityQueue<Process> pq = new PriorityQueue<>(
-      Comparator.comparingInt((Process p) -> p.priority).thenComparingInt(p -> p.pid));
+      Comparator.comparingInt((Process p) -> p.priority).thenComparingInt(p -> p.arrivalTime));
     
     while(finishedProcessCount < length){
       //Add all processes that have arrived by the current time into the PQ
