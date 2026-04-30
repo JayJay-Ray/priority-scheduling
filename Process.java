@@ -8,7 +8,6 @@ public class Process {
   int turnAroundTime;
   int waitingTime;
   int remainingTime;
-  int initialPriority;
   
   //Requires the user to input
   public Process(int pid, int arrivalTime, int burstTime, int priority) {
