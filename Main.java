@@ -31,7 +31,7 @@ public class Main {
         }
         
         if(choice < 1) {
-          System.out.print("Invalid input. Only 1 and 2 are the choices. Please try again.\n");
+          System.out.print("Invalid input. Only 1, 2 and 3 are the choices. Please try again.\n");
           continue;
         }
         clearScreen();
